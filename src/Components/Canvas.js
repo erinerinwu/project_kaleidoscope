@@ -1,11 +1,24 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useImperativeHandle, forwardRef } from 'react';
 
-const Canvas = ({ size = 500, brushColor = '#000000', brushSize = 5 }) => {
+const Canvas = forwardRef((props, ref) => {
+  const { size = 500, brushColor = '#000000', brushSize = 5 , backgroundColor = 'pink' } = props;
   const canvasRef = useRef(null);
+
+  // Use useImperativeHandle to expose the clearCanvas function to the parent component
+  useImperativeHandle(ref, () => ({
+    toDataURL: () => canvasRef.current.toDataURL(),
+    clearCanvas() {
+      const canvas = canvasRef.current;
+      if (canvas) {
+        const context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+      }
+    }
+  }));
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.style.backgroundColor = 'pink'; // Set the canvas background to pink
+    canvas.style.backgroundColor = backgroundColor; 
     const context = canvas.getContext('2d');
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
@@ -26,9 +39,13 @@ const Canvas = ({ size = 500, brushColor = '#000000', brushSize = 5 }) => {
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      context.lineWidth = brushSize; // Use the brushSize prop
-      context.strokeStyle = brushColor; // Use the brushColor prop
+      const hue = (x / canvas.width) * 360;
+      const strokeColor = `hsl(${hue}, 100%, 90%)`;
+
+      context.lineWidth = brushSize;
+      context.strokeStyle = strokeColor;
       context.lineCap = 'round';
+
 
       // Calculate initial and final points for the drawing
       const initialPoints = calculateSymmetricalPoints(lastX, lastY, centerX, centerY, brushSize, brushColor, context);
@@ -61,10 +78,10 @@ const Canvas = ({ size = 500, brushColor = '#000000', brushSize = 5 }) => {
       canvas.removeEventListener('mouseup', stopDrawing);
       canvas.removeEventListener('mouseout', stopDrawing);
     };
-  }, [brushColor, brushSize]); // Add brushColor and brushSize as dependencies
+  }, [brushColor, brushSize, backgroundColor]); // Add brushColor and brushSize as dependencies
 
   return <canvas ref={canvasRef} width={size} height={size} />;
-};
+});
 
 export default Canvas;
 

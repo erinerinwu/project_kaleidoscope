@@ -1,4 +1,3 @@
-// BrushControls.js
 import React, { useState } from 'react';
 
 const BrushControls = ({ onColorChange, onSizeChange }) => {
@@ -23,10 +22,10 @@ const BrushControls = ({ onColorChange, onSizeChange }) => {
   };
 
   return (
-    <div onMouseMove={handleMouseMove} style={{ padding: '20px', border: '1px solid #ccc', marginBottom: '10px', cursor: 'crosshair' }}>
-      <div>Move your mouse over this box to change the brush color to a rainbow gradient!</div>
+    <div onMouseMove={handleMouseMove} style={{ padding: '20px', border: '0px solid #ccc', marginBottom: '10px', cursor: 'crosshair' }}>
+      <div style={{ fontFamily: 'monospace' }}>Move your mouse over this box to change the brush color to a rainbow gradient!</div>
       <div>
-        <label htmlFor="brushSize">Brush Size: </label>
+        <label style={{ fontFamily: 'monospace' }} htmlFor="brushSize">Brush Size: </label>
         <input
           id="brushSize"
           type="range"

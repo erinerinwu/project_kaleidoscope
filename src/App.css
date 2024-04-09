@@ -4,5 +4,60 @@
 }
 
 canvas {
-  border: 1px solid #000;
+  border: 0.3px solid #666262;
+}
+
+body {
+  font-family: 'monospace';
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.grfed-container{
+  background-color:white;
+  position: absolute; /* or 'fixed' depending on your needs */
+  top: 550px; /* Distance from the top of the viewport or nearest positioned ancestor */
+  left: 110px; /* Distance from the left of the viewport or nearest positioned ancestor */
+  font-family: monospace;
+  padding: 10px;
+
+}
+
+
+.intro-container{
+  background-color:white;
+  position: absolute; /* or 'fixed' depending on your needs */
+  top: 200px; /* Distance from the top of the viewport or nearest positioned ancestor */
+  left: 1020px; /* Distance from the left of the viewport or nearest positioned ancestor */
+  font-family: monospace;
+  padding: 50px;
+}
+.color-options-container {
+  background-color:white;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-right: 50px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  position: absolute; /* or 'fixed' depending on your needs */
+  top: 250px; /* Distance from the top of the viewport or nearest positioned ancestor */
+  left: 90px; /* Distance from the left of the viewport or nearest positioned ancestor */
+}
+
+.color-option {
+  width: calc(50% - 10px);
+  margin: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.color-option div {
+  width: 100%;
+  height: 80px;
+  margin-bottom: 5px;
 }
